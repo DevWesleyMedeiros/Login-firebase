@@ -70,5 +70,3 @@ O processo de autenticação com o Firebase é bem simples:
 
 No seu projeto, a integração do login do Google é feita através da API de autenticação do Firebase, que simplifica bastante o processo de autenticação ao lidar com a integração de terceiros.
 
-Espero que isso ajude! Se precisar de algo mais, é só avisar.
-
