@@ -4,20 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css">
-    <title>SignUp</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Login</title>
 </head>
 <body>
-    <div class="container-form signup">
+  
+    <!-- onde virá o efeito do loader -->
+    <div class="container-loader" id="container-loader">
+      <div class="loader">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+    </div>
 
+
+    <div class="container-form">
+
+      <h1 class="form-title">Criar sua conta</h1>
       <form class="form__container"> 
-        <input type="email" placeholder="Digite seu Email" class="inputs__form" id="signup-email">
-        <input type="password" placeholder="Digite seu senha" class="inputs__form" id="signup-password"></input>
-        <input type="password" name="password" id="repeat-signup-password" placeholder="Digite sua senha novamente" class="inputs__form"></input>
-        <input type="submit" name="enviar" value="Enviar" class="inputs__form btn__form" id="signup-btn-submit"></input>
-        <a href="../index.html" class="back btn__signup" target="_self">Voltar</a>
+
+        <label for="email">Seu melhor Email:</label>
+        <input type="email" placeholder="Digite seu Email" class="inputs__form" id="email" autocomplete="on" required >
+        <p id="email-error-message"></p>
+
+        <div class="password-container">
+
+          <label for="password">Sua senha:</label>
+          <input type="password" placeholder="Maiúscula, minúscula, número, char especial e oito digitos" class="inputs__form" id="password" required maxlength="8"><span class="view-password" id="btn-view-password">👁️</span>
+          <p id="password-error-message"></p>
+
+          <label for="password-match">Repita sua senha</label>
+          <input type="password" placeholder="Confirme sua senha" class="inputs__form" id="password-match" required maxlength="8">
+          <p id="password-match-error-message"></p>
+        </div>
+
+        <div class="container-btn-submit">
+          <input type="submit" name="enviar" value="Logar" class="inputs__form input-submit btn__form" id="btn-submit">
+        </div>
+        
+
+        <a href="../../login.html" target="_self" class="btn__signup">
+          <span>Voltar a tela de login</span>
+        </a>
       </form>
     </div>
-    <script type="module" src="../main.js"></script>
+    <script type="module" src="../scripts/main.js"></script>
 </body>
 </html>

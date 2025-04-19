@@ -31,6 +31,18 @@ export function inputPasswordErrorMessage(errorMessageElement){
     errorMessageElement.classList.add("validation-message");
     errorMessageElement.textContent = "Senha inválida.";
 }
+// função que compara duas senhas se elas estão iguais
+export function comparePasswords(password, confirmPassword, errorMessageElement) {
+    if (password === confirmPassword) {
+        errorMessageElement.textContent = "";
+        return true;
+    } else {
+        errorMessageElement.textContent = "As senhas não coincidem.";
+        errorMessageElement.classList.add("validation-message");
+        return false;
+    }
+}
+
 export function InitLoader(){
     document.getElementById("container-loader").style.display = "flex";
 }
