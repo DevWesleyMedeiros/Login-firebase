@@ -55,3 +55,18 @@ npm install
 npm run dev
 ```
 
+### Explicação do Auth
+
+O Firebase Authentication oferece uma maneira simples de autenticar usuários em aplicativos. Ele suporta vários provedores de autenticação, como:
+
+- **E-mail/Senha**: Usuários podem criar uma conta com um endereço de e-mail e senha, e depois fazer login com essas credenciais.
+- **Google**: Permite que os usuários façam login com suas contas do Google, sem necessidade de se registrar manualmente.
+  
+O processo de autenticação com o Firebase é bem simples:
+
+1. **Registro de usuário**: Criação de uma conta com o Firebase Authentication (pode ser feito com e-mail/senha ou com o Google).
+2. **Login**: O usuário entra usando suas credenciais ou o provedor de autenticação de sua escolha.
+3. **Sessão ativa**: Depois de autenticado, o usuário permanece logado até que saia da aplicação ou a sessão expire.
+
+No seu projeto, a integração do login do Google é feita através da API de autenticação do Firebase, que simplifica bastante o processo de autenticação ao lidar com a integração de terceiros.
+

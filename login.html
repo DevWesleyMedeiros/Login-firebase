@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/styles/style.css">
+    <title>Faça seu login</title>
+</head>
+<body>
+    <div class="container-form">
+
+        <h1 class="form-title">Entrar na sua conta</h1>
+        <form class="form__container">
+
+            <label for="email-login">Digite seu Email</label>
+            <input type="email" placeholder="Digite seu Email" class="inputs__form" id="email-login" autocomplete="on" required>
+
+            <label for="password-login">Digite sua Senha</label>
+            <input type="password" placeholder="Digite sua senha" class="inputs__form" id="password-login" required maxlength="8">
+            <span class="view-password" id="btn-view-password">👁️</span>
+
+            <div class="container-btn-submit">
+
+                <input type="submit" name="enviar" value="Logar" class="inputs__form input-submit btn__form" id="btn-submit">
+                <span class="google-login-icon">
+                    <i class="fa-brands fa-google"></i>
+                </span>
+
+                <span>
+                    <i class="fa-brands fa-google"></i>
+                </span>
+                <input type="submit" name="enviar" value="Logar com Google" class="inputs__form btn__form input-submit" id="btn-submit-google">
+
+            </div>
+
+
+            <a href="./src/pages/signup.html" target="_self" class="btn__signup">
+                <span>Não possui conta? </span>
+                Cadastre-se
+            </a>
+
+        </form>
+    </div>
+    <script type="module" src="./src/scripts/main.js"></script>
+</body>
+</html>

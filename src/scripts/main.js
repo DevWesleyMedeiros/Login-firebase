@@ -6,9 +6,10 @@ import {
   clearAndFocusEmailInput,
   inputEmailErrorMessage,
   inputPasswordErrorMessage,
+  comparePasswords,
   InitLoader,
   EndLoader
-} from "./Utils/functions.js";
+} from "../Utils/functions.js";
 import {
   auth
 } from "./firebaseConfig";
@@ -27,6 +28,8 @@ const btnSubmitGoogle = document.getElementById("btn-submit-google");
 const btnViewPassword = document.getElementById("btn-view-password");
 const emailErrorMessage = document.getElementById("email-error-message");
 const passwordErrorMessage = document.getElementById("password-error-message");
+const passwordErrorMessageMatch = document.getElementById("password-match-error-message");
+const passwordMatch = document.getElementById("password-match"); 
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -47,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Usuário do Google:", user);
 
         // Redirecionar ou fazer outras ações após o login
-        window.location.href = "./src/pages/home.html"; // Exemplo
+        window.location.href = "../login.html"; // Exemplo
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -58,7 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   };
 
-  btnSubmitGoogle.addEventListener("click", () => {
+  // acionando o botão de login com o google e passa a função de conexão
+  btnSubmitGoogle.addEventListener("click", (event) => {
+    event.preventDefault();
     signInWithGoogle();
   });
 
@@ -70,9 +75,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const password = document.getElementById("password").value;
 
     // Verifique se os valores não estão vazios
-    if (!email || !password) {
+    if (!email || !password || !passwordMatch.value) {
       window.alert("Por favor, preencha os campos de email e senha.");
       return;
+    }
+    if (password !== passwordMatch.value) {
+      comparePasswords(password, passwordMatch.value, passwordErrorMessageMatch);
     }
 
     // Verifique se o email e a senha são válidos
