@@ -11,12 +11,14 @@ export function validatePassword(password) {
 
 // função que limpa e da focus no input de email e outros textos
 export function clearAndFocusEmailInput(){
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
-    const emailErrorMessage = document.getElementById("email-error-message");
-    const passwordErrorMessage = document.getElementById("password-error-message");
+    const emailInput = document.querySelector(".email");
+    const passwordInput = document.querySelector(".password");
+    const passwordMatchInput = document.querySelector(".password-match");
+    const emailErrorMessage = document.querySelector(".email-error-message");
+    const passwordErrorMessage = document.querySelector(".password-error-message");
     emailErrorMessage.textContent = "";
     passwordErrorMessage.textContent = "";
+    passwordMatchInput.value = "";
     emailInput.value = "";
     passwordInput.value = "";
     emailInput.focus();
@@ -44,11 +46,11 @@ export function comparePasswords(password, confirmPassword, errorMessageElement)
 }
 
 export function InitLoader(){
-    document.getElementById("container-loader").style.display = "flex";
+    document.querySelector(".container-loader").style.display = "flex";
 }
 export function EndLoader(){
     setTimeout(() => {
-        document.getElementById("container-loader").style.display = "none";
+        document.querySelector(".container-loader").style.display = "none";
     }, 1000);
 }
 // validader email e password
