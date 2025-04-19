@@ -9,119 +9,116 @@ import {
   comparePasswords,
   InitLoader,
   EndLoader
-} from "../Utils/functions.js";
+}
+from "@utils/functions";
+
 import {
   auth
-} from "./firebaseConfig";
+}
+from "@scripts/firebaseConfig";
+
 import {
-  createUserWithEmailAndPassword
-} from "firebase/auth";
-import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
 
-const provider = new GoogleAuthProvider(); // instância do GoogleAuthProvider que nos concede acesso aos métodos do GoogleAuthProvider
-
-const btnSubmit = document.getElementById("btn-submit");
-const btnSubmitGoogle = document.getElementById("btn-submit-google");
-const btnViewPassword = document.getElementById("btn-view-password");
-const emailErrorMessage = document.getElementById("email-error-message");
-const passwordErrorMessage = document.getElementById("password-error-message");
-const passwordErrorMessageMatch = document.getElementById("password-match-error-message");
-const passwordMatch = document.getElementById("password-match"); 
-
+const provider = new GoogleAuthProvider();
 
 document.addEventListener("DOMContentLoaded", () => {
+      const btnSubmit = document.querySelector(".btn-submit");
+      const btnSubmitGoogle = document.querySelector(".btn-submit-google");
+      const btnViewPassword = document.querySelector(".btn-view-password");
 
-  // Mostrar/Ocultar a senha
-  btnViewPassword.addEventListener("click", () => {
-    const passwordInput = document.getElementById("password");
-    const passwordFieldType = passwordInput.type === "password" ? "text" : "password";
-    passwordInput.type = passwordFieldType;
-  });
+  const emailInput = document.querySelector(".email");
+  const passwordInput = document.querySelector(".password");
+  const passwordMatchInput = document.querySelector(".password-match");
 
-  // Função que cria login com o google
-  const signInWithGoogle = () => {
-    signInWithPopup(auth, provider)
-      .then((userCredential) => {
-        window.alert("Login com Google bem-sucedido!");
-        const user = userCredential.user;
-        console.log("Usuário do Google:", user);
+  const emailErrorMessage = document.querySelector(".email-error-message");
+  const passwordErrorMessage = document.querySelector(".password-error-message");
+  const passwordErrorMessageMatch = document.querySelector(".password-match-error-message");
 
-        // Redirecionar ou fazer outras ações após o login
-        window.location.href = "../login.html"; // Exemplo
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+  const isSignupPage = window.location.pathname.includes("signup"); // Verifica se é a página de cadastro
 
-        console.error("Erro no login com Google:", errorCode, errorMessage);
-        window.alert("Falha no login com Google: " + errorMessage);
+  // Mostrar/Ocultar senha
+  if (btnViewPassword) {
+    btnViewPassword.addEventListener("click", () => {
+      if (passwordInput) {
+        passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+      }
+      if (passwordMatchInput) {
+        passwordMatchInput.type = passwordMatchInput.type === "password" ? "text" : "password";
+      }
       });
-  };
+  }
 
-  // acionando o botão de login com o google e passa a função de conexão
-  btnSubmitGoogle.addEventListener("click", (event) => {
-    event.preventDefault();
-    signInWithGoogle();
-  });
-
-  // Verifica se o email e senha são válidos
-  btnSubmit.addEventListener("click", (event) => {
-    event.preventDefault();
-    // Pegue os valores dentro do evento de clique
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    // Verifique se os valores não estão vazios
-    if (!email || !password || !passwordMatch.value) {
-      window.alert("Por favor, preencha os campos de email e senha.");
-      return;
-    }
-    if (password !== passwordMatch.value) {
-      comparePasswords(password, passwordMatch.value, passwordErrorMessageMatch);
+  // Login com Google
+  if (btnSubmitGoogle) {
+    btnSubmitGoogle.addEventListener("click", (evt) => {
+          evt.preventDefault();
+          signInWithPopup(auth, provider)
+            .then((userCredential) => {
+          alert("Login com Google bem-sucedido!");
+          console.log("Usuário do Google:", userCredential.user);
+          window.location.href = "../../index.html"; // Redirecionar após login
+          })
+          .catch((error) => {
+          console.error("Erro no login com Google:", error.code, error.message);
+          alert("Falha no login com Google: " + error.message);
+          });
+    });
     }
 
-    // Verifique se o email e a senha são válidos
-    if (!validateEmail(email)) {
-      inputEmailErrorMessage(emailErrorMessage);
-      return;
-    }
+  // Botão principal (Login ou Cadastro)
+  if (btnSubmit) {
+    btnSubmit.addEventListener("click", async (event) => {
+            event.preventDefault();
 
-    // Verifique se a sua senha é válida
-    if (!validatePassword(password)) {
-      inputPasswordErrorMessage(passwordErrorMessage);
-      return;
-    }
+      const email = emailInput?.value.trim();
+      const password = passwordInput?.value.trim();
+      const passwordMatch = passwordMatchInput?.value.trim();
 
-    // Mostrar o loader imediatamente
-    InitLoader();
+      if (!email || !password || (isSignupPage && !passwordMatch)) {
+        alert("Por favor, preencha os campos obrigatórios.");
+        return;
+      }
 
-    // Registra o usuário com Firebase e espera a resposta
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user; // onde eu recebo o usuário criado
-        console.log(user.uid); // mostro o usuário criado a partir do userCredential
+      if (!validateEmail(email)) {
+        inputEmailErrorMessage(emailErrorMessage);
+        return;
+      }
 
-        // Após a resposta, esconder o loader e limpar o formulário
+      if (!validatePassword(password)) {
+        inputPasswordErrorMessage(passwordErrorMessage);
+        return;
+      }
+
+      if (isSignupPage && password !== passwordMatch) {
+        comparePasswords(password, passwordMatch, passwordErrorMessageMatch);
+        return;
+      }
+
+      InitLoader();
+
+      try {
+        if (isSignupPage) {
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          window.alert(`Usuário cadastrado:", ${userCredential.user.uid}`);
+        } else {
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          console.log(`Usuário logado: ${userCredential.user.uid}`);
+        }
+
         setTimeout(() => {
-          document.getElementById("container-loader").style.display = "none";
+          EndLoader();
           clearAndFocusEmailInput();
         }, 2000);
-
-      })
-      .catch((error) => {
-        const errorCode = error.code; // onde criamos o código de erro
-        const errorMessage = error.message;
-        window.alert("Erro: " + errorMessage);
-        console.log(errorCode, errorMessage);
-
-        // Esconder o loader caso haja erro
-        document.getElementById("container-loader").style.display = "none";
-      });
-
-    // Esconder o loader após 5 segundos, mesmo que o Firebase não tenha respondido
-    EndLoader();
-  });
+      } catch (error) {
+        console.error("Erro de autenticação:", error.code, error.message);
+        alert("Erro: " + error.message);
+        EndLoader();
+      }
+    });
+  }
 });

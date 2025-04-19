@@ -3,7 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "./src/main.js",
+  "description": "Teste authentifição e armazenamento com auth e com firestore no firebase",
+  "author": "Wesley",
+  "license": "MIT",
+  "homepage": "https://github.com/DevWesleyMedeiros/auth-firebase",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DevWesleyMedeiros/auth-firebase.git"
+  },
+  "main": "./src/scripts/main.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
