@@ -8,7 +8,8 @@ import {
   inputPasswordErrorMessage,
   comparePasswords,
   InitLoader,
-  EndLoader
+  EndLoader,
+  showToast
 }
 from "@utils/functions";
 
@@ -18,18 +19,18 @@ import {
 from "@scripts/firebaseConfig";
 
 import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword, // criar um usário e uma senha
+  signInWithEmailAndPassword, // logar com email e senha criados
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithPopup, // abre a janelinha de cadastro do google
 } from "firebase/auth";
 
 const provider = new GoogleAuthProvider();
 
 document.addEventListener("DOMContentLoaded", () => {
-      const btnSubmit = document.querySelector(".btn-submit");
-      const btnSubmitGoogle = document.querySelector(".btn-submit-google");
-      const btnViewPassword = document.querySelector(".btn-view-password");
+  const btnSubmit = document.querySelector(".btn-submit");
+  const btnSubmitGoogle = document.querySelector(".btn-submit-google");
+  const btnViewPassword = document.querySelector(".btn-view-password");
 
   const emailInput = document.querySelector(".email");
   const passwordInput = document.querySelector(".password");
@@ -39,7 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const passwordErrorMessage = document.querySelector(".password-error-message");
   const passwordErrorMessageMatch = document.querySelector(".password-match-error-message");
 
-  const isSignupPage = window.location.pathname.includes("signup"); // Verifica se é a página de cadastro
+  const isSignupPage = window.location.pathname.includes("signup"); // Verifica se é a página de cadastro. Se for, retorna true. Caso contrário, retorna false.
+  // signup é true e login é false
 
   // Mostrar/Ocultar senha
   if (btnViewPassword) {
@@ -50,30 +52,30 @@ document.addEventListener("DOMContentLoaded", () => {
       if (passwordMatchInput) {
         passwordMatchInput.type = passwordMatchInput.type === "password" ? "text" : "password";
       }
-      });
+    });
   }
 
   // Login com Google
   if (btnSubmitGoogle) {
     btnSubmitGoogle.addEventListener("click", (evt) => {
-          evt.preventDefault();
-          signInWithPopup(auth, provider)
-            .then((userCredential) => {
-          alert("Login com Google bem-sucedido!");
+      evt.preventDefault();
+      signInWithPopup(auth, provider)
+        .then((userCredential) => {
+          showToast("Login com Google bem-sucedido!");
           console.log("Usuário do Google:", userCredential.user);
-          window.location.href = "../../index.html"; // Redirecionar após login
-          })
-          .catch((error) => {
+          window.location.href = "/src/pages/home.html" // Redirecionar após login
+          }).catch((error) => {
+
           console.error("Erro no login com Google:", error.code, error.message);
-          alert("Falha no login com Google: " + error.message);
+          showToast("Erro no login com Google!", error.message);
           });
     });
-    }
+  }
 
   // Botão principal (Login ou Cadastro)
   if (btnSubmit) {
     btnSubmit.addEventListener("click", async (event) => {
-            event.preventDefault();
+      event.preventDefault();
 
       const email = emailInput?.value.trim();
       const password = passwordInput?.value.trim();
@@ -104,10 +106,14 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         if (isSignupPage) {
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-          window.alert(`Usuário cadastrado:", ${userCredential.user.uid}`);
-        } else {
+          showToast("Usuário criado com sucesso!", "success");
+          window.location.href = "/index.html";
+          }
+
+          if (!isSignupPage) {
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
-          console.log(`Usuário logado: ${userCredential.user.uid}`);
+          showToast("Login bem-sucedido!", "success");
+          window.location.href = "/src/pages/home.html";
         }
 
         setTimeout(() => {
@@ -116,9 +122,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 2000);
       } catch (error) {
         console.error("Erro de autenticação:", error.code, error.message);
-        alert("Erro: " + error.message);
+        showToast("Erro de autenticação: " + error.message, "error");
         EndLoader();
       }
     });
   }
 });
+// prittier alt + shift + f

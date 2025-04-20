@@ -10,7 +10,7 @@ export function validatePassword(password) {
 }
 
 // função que limpa e da focus no input de email e outros textos
-export function clearAndFocusEmailInput(){
+export function clearAndFocusEmailInput() {
     const emailInput = document.querySelector(".email");
     const passwordInput = document.querySelector(".password");
     const passwordMatchInput = document.querySelector(".password-match");
@@ -24,12 +24,12 @@ export function clearAndFocusEmailInput(){
     emailInput.focus();
 };
 // função que mostra a mensagem de erro do email
-export function inputEmailErrorMessage(errorMessageElement){
+export function inputEmailErrorMessage(errorMessageElement) {
     errorMessageElement.classList.add("validation-message");
     errorMessageElement.textContent = "Email inválido.";
 }
 // função que mostra a mensagem de erro da senha
-export function inputPasswordErrorMessage(errorMessageElement){
+export function inputPasswordErrorMessage(errorMessageElement) {
     errorMessageElement.classList.add("validation-message");
     errorMessageElement.textContent = "Senha inválida.";
 }
@@ -45,14 +45,31 @@ export function comparePasswords(password, confirmPassword, errorMessageElement)
     }
 }
 
-export function InitLoader(){
+export function InitLoader() {
     document.querySelector(".container-loader").style.display = "flex";
 }
-export function EndLoader(){
+export function EndLoader() {
     setTimeout(() => {
         document.querySelector(".container-loader").style.display = "none";
     }, 1000);
 }
+// função toast que mostra a mensagem de erro ou uma modal de login
+export function showToast(message, type = "success") {
+    const toastContainer = document.getElementById("toast-container");
+    if (!toastContainer) return;
+
+    const toast = document.createElement("div");
+    toast.classList.add("toast", type);
+    toast.textContent = message;
+
+    toastContainer.appendChild(toast);
+
+    // Remover após a animação (5s)
+    setTimeout(() => {
+        toast.remove();
+    }, 5000);
+}
+
 // validader email e password
 // /^[^\s@]+@[^\s@]+\.[^\s@]+$/ significa que eu podero colocar qualquer coisa antes do @ e depois do @ e depois do .
 // (?=.*[a-z]) significa que eu preciso de pelo menos uma letra minuscula
