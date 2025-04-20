@@ -64,11 +64,11 @@ document.addEventListener("DOMContentLoaded", () => {
           showToast("Login com Google bem-sucedido!");
           console.log("Usuário do Google:", userCredential.user);
           window.location.href = "/src/pages/home.html" // Redirecionar após login
-          }).catch((error) => {
+        }).catch((error) => {
 
           console.error("Erro no login com Google:", error.code, error.message);
           showToast("Erro no login com Google!", error.message);
-          });
+        });
     });
   }
 
@@ -108,9 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);
           showToast("Usuário criado com sucesso!", "success");
           window.location.href = "/index.html";
-          }
+        }
 
-          if (!isSignupPage) {
+        if (!isSignupPage) {
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
           showToast("Login bem-sucedido!", "success");
           window.location.href = "/src/pages/home.html";
