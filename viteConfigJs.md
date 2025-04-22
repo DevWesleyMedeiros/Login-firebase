@@ -1,4 +1,5 @@
 ### Explicando as features do vite.config.js
+
 - **Configuração de alias**: `alias` é usado para definir caminhos de alias para importações. Por exemplo, `@/` pode ser usado para importar arquivos a partir da raiz do projeto.
 - **Configuração de extensões**: `extensions` é usado para definir as extensões de arquivos que o Vite deve procurar ao importar módulos.
 - **Configuração de plugins**: `plugins` é usado para adicionar plugins ao processo de construção do projeto.
@@ -18,7 +19,7 @@
 - **enforce**: `enforce` é usado para definir a ordem de execução das regras.
 - **apply**: `apply` é usado para definir o modo de execução das regras.
 - **name**: `name` é usado para definir o nome da regra.
-- **transformIndexHtml**: `transformIndexHtml` é usado para definir a transformação de arquivos HTML. 
+- **transformIndexHtml**: `transformIndexHtml` é usado para definir a transformação de arquivos HTML.
 
 ```javascript
 import { defineConfig } from 'vite';

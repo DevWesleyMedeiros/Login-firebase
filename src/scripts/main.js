@@ -49,23 +49,26 @@ document.addEventListener("DOMContentLoaded", () => {
       if (passwordInput) {
         passwordInput.type = passwordInput.type === "password" ? "text" : "password";
       }
-      if (passwordMatchInput) {
-        passwordMatchInput.type = passwordMatchInput.type === "password" ? "text" : "password";
-      }
     });
   }
+
+  let photoAvatar;
 
   // Login com Google
   if (btnSubmitGoogle) {
     btnSubmitGoogle.addEventListener("click", (evt) => {
       evt.preventDefault();
+      const provider = new GoogleAuthProvider();
+      // concede acesso ao usuário com o Google
+
       signInWithPopup(auth, provider)
         .then((userCredential) => {
-          showToast("Login com Google bem-sucedido!");
-          console.log("Usuário do Google:", userCredential.user);
-          window.location.href = "/src/pages/home.html" // Redirecionar após login
-        }).catch((error) => {
+          const userWithGoogle = userCredential.user; // imagem do avatar
 
+          showToast("Login com Google bem-sucedido!");
+          window.location.href = `/src/pages/home.html?uid=${userWithGoogle.uid}&photo=${encodeURIComponent(userWithGoogle.photoURL)}`; // Redirecionar após login
+
+        }).catch((error) => {
           console.error("Erro no login com Google:", error.code, error.message);
           showToast("Erro no login com Google!", error.message);
         });
@@ -113,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!isSignupPage) {
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
           showToast("Login bem-sucedido!", "success");
-          window.location.href = "/src/pages/home.html";
+          window.location.href = `/src/pages/home.html?${userCredential.user.uid}`;
         }
 
         setTimeout(() => {
@@ -127,5 +130,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});
-// prittier alt + shift + f
+}); // prittier alt + shift + f
