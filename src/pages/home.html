@@ -9,10 +9,10 @@
 </head>
 <body>
     <header>
-
         <div class="container-avatar">
-            <div class="avatar-circle">
-                <img src="#" alt="avatar" class="avatar-image">
+            <div class="avatar-circle" onclick="document.getElementById('avatar-Input').click()">
+                <img src="" class="avatar-image" id="avatar-image">
+                <input type="file" id="avatar-input" accept="image/*" style="display: none;">
             </div>
             <p>Logado</p>
         </div>
@@ -24,12 +24,21 @@
         <div class="btn-logout">
             <button class="logout" id="logout">Sair</button>
         </div>
-
     </header>
 
     <section class="main-content">
-        <h1 class="form-title">Bem vindo a página home</h1>
+
+        <h1 class="form-title">Sua biblioteca digital</h1>
+        <div class="container-books">
+            <div class="book">Book 1</div>
+            <div class="book">Book 2</div>
+            <div class="book">Book 3</div>
+            <div class="book">Book 4</div>
+            <div class="book">Book 5</div>
+        </div>
+
     </section>
+    
     <script type="module" src="./pages.js"></script>
 </body>
 </html>
