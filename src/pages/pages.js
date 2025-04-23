@@ -1,11 +1,18 @@
 "use strict";
 
-import { auth } from "@scripts/firebaseConfig";
-import { signOut } from "firebase/auth";
+import {
+    auth
+} from "@services/firebaseConfig";
+import {
+    signOut,
+    onAuthStateChanged,
+} from "firebase/auth";
 
 const btnLogout = document.getElementById("logout");
 const inputAvatarAdd = document.getElementById("avatar-input");
 const imgAvatar = document.getElementById("avatar-image");
+const usuarioLogadoState = document.querySelector(".loginHomeState");
+
 
 document.addEventListener("DOMContentLoaded", () => {
     // capiturar o link da imagem do usuário
@@ -13,6 +20,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const avatarUrl = urlParams.get("photo");
     if (imgAvatar && avatarUrl) {
         imgAvatar.src = avatarUrl;
+    }
+    // mudança no estado para pegar o nome do usuário
+    if (usuarioLogadoState) {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const displayName = user.displayName;
+                usuarioLogadoState.textContent = `Olá, ${displayName}`;
+            } else {
+                usuarioLogadoState.textContent = "";
+            }
+        });
+
     }
 
     inputAvatarAdd.addEventListener("change", () => {
