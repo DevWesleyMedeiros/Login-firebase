@@ -44,6 +44,7 @@ export default defineConfig({
     extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', 'png', 'jpeg'],
     alias: {
       '@scripts': resolve(__dirname, 'src/scripts'),
+      '@services': resolve(__dirname, 'src/services'),
       '@utils': resolve(__dirname, 'src/utils'),
       '@styles': resolve(__dirname, 'src/styles'), 
       '@images': resolve(__dirname, 'src/images'),

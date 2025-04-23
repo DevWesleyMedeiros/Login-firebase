@@ -39,12 +39,35 @@ export default defineConfig({
   build: {
     outDir: '../dist' // serve para definir o diretório de saída do projeto
   },
+  output: {
+          assetFileNames: ({
+            name
+          }) => {
+            if (/\.(gif|jpe?g|png|svg|ico|webp|avif)$/.test(name || "")) {
+              return "images/[name]-[hash][extname]";
+            }
+            if (/\.(css)$/.test(name || "")) {
+              return "styles/[name]-[hash][extname]";
+            }
+            if (/\.(ttf|otf|woff|woff2)$/.test(name || "")) {
+              return "fonts/[name]-[hash][extname]";
+            }
+            return "assets/[name]-[hash][extname]";
+          },
+          chunkFileNames: "chunks/[name]-[hash].js",
+          entryFileNames: "scripts/[name]-[hash].js",
+        },
   publicDir: './public', // serve para definir o diretório público do projeto
   resolve: {
     extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'], // serve para não precisar colocar a extensão do arquivo
     alias: {
       '@scripts': resolve(__dirname, 'src/scripts'), // serve para definir o alias do diretório src/scripts
       '@styles': resolve(__dirname, 'src/styles'), // serve para definir o alias do diretório src/styles
+      alias: {
+      '@services': resolve(__dirname, 'src/services'),
+      '@utils': resolve(__dirname, 'src/utils'), 
+      '@images': resolve(__dirname, 'src/images'),
+    }
     }
   },
   base: '/', // serve para definir o caminho base do projeto
