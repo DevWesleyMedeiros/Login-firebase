@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const emailErrorMessage = document.querySelector(".email-error-message");
   const passwordErrorMessage = document.querySelector(".password-error-message");
   const passwordErrorMessageMatch = document.querySelector(".password-match-error-message");
+
   const nameInput = document.querySelector(".input-name");
 
   const isSignupPage = window.location.pathname.includes("signup"); // Verifica se é a página de cadastro. Se for, retorna true. Caso contrário, retorna false.

@@ -20,26 +20,29 @@
   </div>
 
   <!-- Toast Container -->
-<div id="toast-container"></div>
+  <div id="toast-container"></div>
 
+  <!-- Imagem de fundo -->
+  <div class="background"></div>
 
+  <!-- Formulário -->
   <div class="container-form">
     <h1 class="form-title">Criar sua conta</h1>
+
     <form class="form__container">
-
       <label for="input-name">Seu nome de usuário:</label>
-      <input type="text" class="inputs__form input-name" id="input-name" placeholder="Nome de usário" required autocomplete="on" >
-
+      <input type="text" class="inputs__form input-name" id="input-name" placeholder="Nome de usário" required autocomplete="on">
+      
       <label for="input-email">Seu melhor Email:</label>
       <input type="email" placeholder="Digite seu Email" class="inputs__form email" autocomplete="on" required id="input-email">
       <p class="email-error-message"></p>
-      <div class="password-container">
 
+      <div class="password-container">
         <label for="input-password">Sua senha:</label>
         <input type="password" placeholder="Maiúscula, minúscula, número, char especial e oito digitos" class="inputs__form password" id="input-password" required maxlength="8">
         <span class="view-password btn-view-password">👁️</span>
         <p class="password-error-message"></p>
-
+        
         <label for="input-password-match">Repita sua senha:</label>
         <input type="password" placeholder="Confirme sua senha" class="inputs__form password-match" id="input-password-match" required maxlength="8">
         <p class="password-match-error-message"></p>
@@ -48,7 +51,6 @@
       <div class="container-btn-submit">
         <input type="submit" value="Cadastrar" class="inputs__form input-submit btn__form btn-submit">
       </div>
-
       <a href="../../index.html" target="_self" class="btn__signup">
         <span>Voltar à tela de login</span>
       </a>
