@@ -8,6 +8,16 @@
   outline: none;
   color: white;
 }
+:root {
+  --color-primary: #4c1d95;
+  --color-secondary: #6d28d9;
+  --border-color: #a78bfa;
+  --color-quaternary: #ede9fe;
+  --textColor: #1f2937;
+  --border-radius: 5px;
+  --default-text-color: #000;
+  --default-text-color-hover: #fff
+}
 
 body, html {
   height: 100%;
@@ -18,7 +28,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(to right, #4c1d95, #6d28d9);
+  background-image: linear-gradient(to right, var(--color-primary), var(--color-secondary));
 }
 
 header .container-avatar {
@@ -31,18 +41,23 @@ header .container-avatar {
 .container-avatar .avatar-circle {
   width: 100px;
   height: 100px;
+  display: flex;
   border-radius: 50%;
-  border: 2px solid #a78bfa;
+  border: 2px solid var(--border-color);
   margin-right: 1rem;
   overflow: hidden;
-  cursor: pointer;
+  position: relative;
 }
 
-.container-avatar .avatar-circle .avatar-image {
+.container-avatar .avatar-circle .avatar-image{
   width: 100%;
   height: 100%;
+  background-color: var(--border-color);
   object-fit: cover;
-  background-color: #a78bfa;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
 }
 
 header .btn-logout {
@@ -55,10 +70,10 @@ header .btn-logout {
 
 .btn-logout button.logout {
   width: 150px;
-  background-image: linear-gradient(to right, #a78bfa, #6d28d9);
+  background-image: linear-gradient(to right, var(--border-color), var(--color-secondary));
   color: white;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   cursor: pointer;
   margin-right: 2%;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
@@ -66,7 +81,7 @@ header .btn-logout {
 }
 
 .btn-logout button.logout:hover {
-  background-image: linear-gradient(to right, #6d28d9, #a78bfa);
+  background-image: linear-gradient(to right, var(--color-secondary), var(--border-color));
 }
 
 .main-content {
@@ -76,41 +91,63 @@ header .btn-logout {
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  background-image: linear-gradient(to right, #ede9fe, #c4b5fd);
+  background-image: linear-gradient(to right, var(--color-quaternary), #c4b5fd);
 }
 .main-content .container-books{
   width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   padding: 1rem;
 }
 .container-books .book{
+  max-width: 200px;
   width: calc(100% / 5);
-  height: 250px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #1f2937;
+  color: var(--textColor);
   margin: .5rem .5rem ;
   border: 1px solid #4d4a4a;
   box-shadow: 5px 5px 1px 2px rgba(0, 0, 0, 0.15);
+}
+.search-books-container{
+  position: relative;
 }
 
 .search-books-container .search {
   max-width: 100%;
   width: 450px;
   height: 50px;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   background-color: #f3e8ff;
-  color: #1f2937;
+  color: var(--textColor);
   padding: 1rem;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
-
+.search-books-container .btn_search{
+  max-width: 100%;
+  width: 225px;
+  height: 47px;
+  color: var(--textColor);
+  border-radius: 10px;
+  background-image: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  box-shadow: 1px 5px 3px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease-in-out;
+  position: absolute;
+  top: 2%;
+  left: 98%;
+  margin-right: 1rem;
+}
+.search-books-container .btn_search:hover{
+  background-image: linear-gradient(to right, var(--color-secondary), var(--color-primary));
+  color: var(--default-text-color-hover);
+}
 .main-content h1 {
-  color: #4c1d95;
+  color: var(--color-primary);
   font-size: 2rem;
   margin-top: 5rem;
   margin-bottom: 2rem;
