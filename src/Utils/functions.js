@@ -16,8 +16,10 @@ export function clearAndFocusEmailInput() {
     const passwordMatchInput = document.querySelector(".password-match");
     const emailErrorMessage = document.querySelector(".email-error-message");
     const passwordErrorMessage = document.querySelector(".password-error-message");
+    const nameInput = document.querySelector(".input-name");
     emailErrorMessage.textContent = "";
     passwordErrorMessage.textContent = "";
+    nameInput.value = "";
     passwordMatchInput.value = "";
     emailInput.value = "";
     passwordInput.value = "";

@@ -16,7 +16,13 @@ body, html {
   justify-content: center;
   align-items: center;
   position: relative;
-  background: linear-gradient(to right, #c0c8e2, #9a86af);
+  background-image: url("../images/imagem1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  overflow: hidden;
 }
 
 label {
@@ -50,6 +56,7 @@ label {
   padding: .5rem 1rem;
   border-radius: 8px;
   background-color: #ffffff;
+  opacity: 0.9;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 

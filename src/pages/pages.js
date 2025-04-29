@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (imgAvatar && avatarUrl) {
         imgAvatar.src = avatarUrl;
     }
-    // mudança no estado para pegar o nome do usuário
+
+    // mudança no estado para pegar o nome do usuário. Quando eu passo a função de update, eu capturo aqui o nome pelo display tanto para login com google quanto para email e senha
     if (usuarioLogadoState) {
         onAuthStateChanged(auth, (user) => {
             if (user) {

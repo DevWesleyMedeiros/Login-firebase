@@ -22,7 +22,7 @@ import {
   createUserWithEmailAndPassword, // criar um usário e uma senha
   updateProfile, // vai atualizar o nome do usuário
   signInWithEmailAndPassword, // logar com email e senha criados
-  GoogleAuthProvider,
+  GoogleAuthProvider, // fornece um provedor de autenticação do Google
   signInWithPopup, // abre a janelinha de cadastro do google
 } from "firebase/auth";
 
@@ -117,10 +117,9 @@ document.addEventListener("DOMContentLoaded", () => {
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);
           const user = userCredential.user;
 
-          // await updateProfile(user, {
-          //   displayName: nameInput.value,
-          //   // opcional: photoURL: 'url-da-foto-aqui'
-          // });
+          await updateProfile(user, {
+            displayName: nameInput.value,
+          });
 
           console.log("Cadastro completo com nome:", user.displayName);
         }
