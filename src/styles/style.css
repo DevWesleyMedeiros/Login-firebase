@@ -12,17 +12,46 @@ body, html {
   height: 100dvh;
   width: 100dvw;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Ajustes para o background */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url("../images/imagem1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
+  filter: blur(3px); /* Aplica o blur na imagem */
+  z-index: 0; /* Fica atrás do formulário */
+}
+
+/* Ajustes para o formulário */
+.container-form {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: .5rem 1rem;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.85); /* Fundo levemente transparente */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   position: relative;
-  overflow: hidden;
+  z-index: 2; /* Garante que o formulário fique acima da imagem */
+  opacity: 0.9;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 label {
@@ -45,19 +74,6 @@ label {
   z-index: 1;
   top: 45%;
   left: 53%;
-}
-
-.container-form {
-  max-width: 500px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  border: none;
-  padding: .5rem 1rem;
-  border-radius: 8px;
-  background-color: #ffffff;
-  opacity: 0.9;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .container-form > .form-title {
@@ -163,7 +179,7 @@ label {
   justify-content: center;
   align-items: center;
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -195,50 +211,10 @@ label {
   25% { transform: scale(1.3) rotate(90deg); }
   50% { transform: scale(1) rotate(180deg); }
   75% { transform: scale(1.3) rotate(270deg); }
-  100% { transform: scale(1) rotate(360deg); }
 }
 
-/* Toasts */ 
-#toast-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
-}
-
-.toast {
-  background-color: #4c1d95;
-  color: #fff;
-  padding: 12px 20px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  opacity: 0.95;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  animation: slideIn 0.3s ease-out, fadeOut 0.5s ease-in 4s forwards;
-}
-
-.toast.success {
-  background-color: #22c55e;
-}
-
-.toast.error {
-  background-color: #ef4444;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 0.95;
-  }
-}
-
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    transform: translateX(100%);
+@media screen and (max-width: 768px) {
+  .background {
+    background-image: url("../images/imagem-background-site.jpg");
   }
 }
