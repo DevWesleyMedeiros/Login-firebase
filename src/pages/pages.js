@@ -1,60 +1,107 @@
 "use strict";
 
-import {
-    auth
-} from "@services/firebaseConfig";
-import {
-    signOut,
-    onAuthStateChanged,
-} from "firebase/auth";
+import { auth } from "@services/firebaseConfig";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 
+// Elementos principais
 const btnLogout = document.getElementById("logout");
 const inputAvatarAdd = document.getElementById("avatar-input");
 const imgAvatar = document.getElementById("avatar-image");
 const usuarioLogadoState = document.querySelector(".loginHomeState");
+const cookiesConsentBox = document.querySelector(".banner-cookies-consent");
 
+// janela de cookies
+
+const COOKIE_KEY = "cookieConsent";
+const btnAccept = document.querySelector(".btn-accept-cookies");
+const btnReject = document.querySelector(".btn-reject-cookies");
+const btnClose = document.querySelector(".btn-close-cookies");
 
 document.addEventListener("DOMContentLoaded", () => {
-    // capiturar o link da imagem do usuário
+    // Avatar de login (foto)
     const urlParams = new URLSearchParams(window.location.search);
     const avatarUrl = urlParams.get("photo");
     if (imgAvatar && avatarUrl) {
         imgAvatar.src = avatarUrl;
     }
 
-    // mudança no estado para pegar o nome do usuário. Quando eu passo a função de update, eu capturo aqui o nome pelo display tanto para login com google quanto para email e senha
+    // Estado de login do usuário
     if (usuarioLogadoState) {
         onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const displayName = user.displayName;
-                usuarioLogadoState.textContent = `Olá, ${displayName}`;
-            } else {
-                usuarioLogadoState.textContent = "";
-            }
+            usuarioLogadoState.textContent = user ? `Olá, ${user.displayName}` : "";
         });
-
     }
 
+    // Preview do avatar
     inputAvatarAdd.addEventListener("change", () => {
         const file = inputAvatarAdd.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function (e) {
+            reader.onload = (e) => {
                 imgAvatar.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
     });
 
+    // Logout
     btnLogout.addEventListener("click", () => {
         signOut(auth).then(() => {
-        window.location.href = "/";
+            window.location.href = "/";
         }).catch((error) => {
             if (error.code === "auth/network-request-failed") {
-                alert("Network error. Por favor, verifique sua conexão com a internet.");
+                alert("Network error. Verifique sua conexão.");
             } else {
-                alert("An error occurred. Por favor, tente novamente mais tarde.");
+                alert("Erro ao sair. Tente novamente.");
             }
         });
+    });
+
+    
+
+    // janela de cookies
+    const getConsentStatus = () => localStorage.getItem(COOKIE_KEY);
+    const setConsentStatus = (status) => localStorage.setItem(COOKIE_KEY, status);
+
+    const showConsentBanner = () => {
+        cookiesConsentBox?.classList.remove("hidden");
+        cookiesConsentBox.style.display = "flex";
+    };
+
+    const hideConsentBanner = () => {
+        cookiesConsentBox?.classList.add("hidden");
+        cookiesConsentBox.style.display = "none";
+    };
+
+    // Mostrar após 2s se não houver consentimento salvo
+    if (!getConsentStatus()) {
+        setTimeout(() => {
+            showConsentBanner();
+        }, 2000);
+    }
+
+    btnAccept?.addEventListener("click", () => {
+        setConsentStatus("accepted");
+        hideConsentBanner();
+    });
+
+    btnReject?.addEventListener("click", () => {
+        setConsentStatus("rejected");
+        hideConsentBanner();
+    });
+
+    btnClose?.addEventListener("click", () => {
+        hideConsentBanner(); // Não salva nada => voltará a aparecer
+    });
+
+    // Ação sensível: busca de livro
+    const btnBuscarLivro = document.getElementById("btn_search");
+    btnBuscarLivro?.addEventListener("click", () => {
+        if (!getConsentStatus()) {
+            showConsentBanner();
+            return;
+        }
+        console.log("Executando busca de livros...");
+        // Aqui entra sua lógica real de busca
     });
 });
