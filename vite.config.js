@@ -1,64 +1,54 @@
 import { defineConfig } from 'vite';
-import {
-  resolve
-} from 'path';
-import tailwindcss from '@tailwindcss/vite'
+import { resolve } from 'path';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  plugins: [{
-    enforce: 'pre',
-    apply: 'serve',
-    name: 'vite-plugin-env-override',
-    transformIndexHtml(html) {
-      return html.replace(/process\.env\.NODE_ENV/g, '"development"')
-    }
-  },
-  tailwindcss()
-],
-  root: './', 
-  build: {
-    outDir: './dist'
+  root: './',
+  plugins: [
+    {
+      enforce: 'pre',
+      apply: 'serve',
+      name: 'vite-plugin-env-override',
+      transformIndexHtml(html) {
+        return html.replace(/process\.env\.NODE_ENV/g, '"development"');
+      },
     },
+    tailwindcss(),
+  ],
+  build: {
+    outDir: 'dist',
     rollupOptions: {
-        input: {
-          main: resolve(__dirname, "./"),
-        },
-        output: {
-          assetFileNames: ({
-            name
-          }) => {
-            if (/\.(gif|jpe?g|png|svg|ico|webp|avif)$/.test(name || "")) {
-              return "images/[name]-[hash][extname]";
-            }
-            if (/\.(css)$/.test(name || "")) {
-              return "styles/[name]-[hash][extname]";
-            }
-            if (/\.(ttf|otf|woff|woff2)$/.test(name || "")) {
-              return "fonts/[name]-[hash][extname]";
-            }
-            return "assets/[name]-[hash][extname]";
-          },
-          chunkFileNames: "chunks/[name]-[hash].js",
-          entryFileNames: "scripts/[name]-[hash].js",
-        },
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        signup: resolve(__dirname, 'src/pages/signup.html'),
+        home: resolve(__dirname, 'src/pages/home.html'),
+      },
+    },
   },
-  publicDir: './public', 
+  publicDir: './public',
   resolve: {
-    extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', 'png', 'jpeg'],
     alias: {
       '@scripts': resolve(__dirname, 'src/scripts'),
       '@services': resolve(__dirname, 'src/services'),
       '@utils': resolve(__dirname, 'src/utils'),
-      '@styles': resolve(__dirname, 'src/styles'), 
+      '@styles': resolve(__dirname, 'src/styles'),
       '@images': resolve(__dirname, 'src/images'),
-    }
+    },
+    extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', '.png', '.jpeg'],
   },
-  base: '/', 
+  base: '/',
   server: {
     port: 5173,
+    proxy: {
+      '/__/auth': {
+        target: 'https://cadastro-usuarios-9c21e.firebaseapp.com',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/__\/auth/, '/__/auth'),
+      },
+    },
   },
   preview: {
-      port: 4173,
-  }
-})
-
+    port: 5173,
+  },
+});
