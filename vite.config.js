@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import {
   resolve
 } from 'path';
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [{
@@ -11,7 +12,9 @@ export default defineConfig({
     transformIndexHtml(html) {
       return html.replace(/process\.env\.NODE_ENV/g, '"development"')
     }
-  }],
+  },
+  tailwindcss()
+],
   root: './', 
   build: {
     outDir: './dist'
