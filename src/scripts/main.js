@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log(userWithGoogle);
 
           showToast("Login com Google bem-sucedido!");
-          window.location.href = `/src/pages/home.html?uid=${userWithGoogle.uid}&photo=${encodeURIComponent(userWithGoogle.photoURL)}`; // Redirecionar após login
+          window.location.href = `/home.html?uid=${userWithGoogle.uid}&photo=${encodeURIComponent(userWithGoogle.photoURL)}`; // Redirecionar após login
 
         }).catch((error) => {
           console.error("Erro no login com Google:", error.code, error.message);
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log(userCredential.user.displayName);
 
           showToast("Login bem-sucedido!", "success");
-          window.location.href = `/src/pages/home.html?${userCredential.user.uid}`;
+          window.location.href = `/home.html?uid=${userCredential.user.uid}`;
         }
 
         setTimeout(() => {
