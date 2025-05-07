@@ -1,20 +1,16 @@
-import {
-    initializeApp
-} from "firebase/app";
+import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore, collection, getDocs, query, where } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCbksuZIkuIYqzhaWBqXuu394wCCUNFyqo",
-    authDomain: "cadastro-usuarios-9c21e.firebaseapp.com",
-    projectId: "cadastro-usuarios-9c21e",
-    storageBucket: "cadastro-usuarios-9c21e.firebasestorage.app",
-    messagingSenderId: "594339524632",
-    appId: "1:594339524632:web:629193861b36d79a15d36d"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-
