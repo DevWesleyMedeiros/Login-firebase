@@ -1,12 +1,4 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  border: none;
-  outline: none;
-}
+@import "tailwindcss";
 
 body, html {
   height: 100dvh;
@@ -18,40 +10,60 @@ body, html {
   overflow-x: hidden;
   overflow-y: auto;
 }
-
-/* Ajustes para o background */
-.background {
+.background,
+.backgroundSignup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("../images/imagem1.jpg");
+  background-image: url("../Images/imagem1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
-  filter: blur(3px); /* Aplica o blur na imagem */
+  filter: blur(4px); /* Aplica o blur na imagem */
   z-index: 0; /* Fica atrás do formulário */
 }
 
+.backgroundSignup {
+  background-image: url("../Images/imagem-background-site.jpg");
+}
+
 /* Ajustes para o formulário */
-.container-form {
+.container-form,
+.container-form-signup {
   max-width: 500px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.85); /* Fundo levemente transparente */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  position: relative;
+  position: absolute;
   z-index: 2; /* Garante que o formulário fique acima da imagem */
   opacity: 0.9;
-  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.container-form-signup {
+  margin: 2rem 0;
+  height: auto;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 0.9;
+    transform: translate(-50%, -50%);
+  }
 }
 
 label {
@@ -64,7 +76,7 @@ label {
 }
 
 .input-submit {
-  margin: 1rem .5rem;
+  margin: 1rem 0.5rem;
 }
 
 .fa-google {
@@ -76,7 +88,8 @@ label {
   left: 53%;
 }
 
-.container-form > .form-title {
+.container-form,
+.container-form-signup > .form-title {
   font-family: 'Courier New', Courier, monospace;
   font-size: 30px;
   text-align: center;
@@ -96,7 +109,7 @@ label {
   align-self: flex-start;
   color: #dc2626;
   font-family: 'Courier New', Courier, monospace;
-  margin: .5rem 0;
+  margin: 0.5rem 0;
 }
 
 .container-btn-submit {
@@ -111,12 +124,12 @@ label {
 .form__container .inputs__form {
   width: 100%;
   height: 50px;
-  padding: .5rem;
-  margin: .5rem 0;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
   border: 1px solid #a78bfa;
   border-radius: 5px;
   background: linear-gradient(to right, #ede9fe, #e0e7ff);
-  transition: border .7s ease-in-out;
+  transition: border 0.7s ease-in-out;
 }
 
 .inputs__form:focus {
@@ -140,14 +153,16 @@ label {
   background: linear-gradient(to right, #7e22ce, #6b21a8);
 }
 
-.form__container .btn__signup {
+.form__container,
+.container-form-signup .btn__signup {
   color: #6d28d9;
   font-size: 20px;
   text-decoration: none;
   margin-top: 1rem;
 }
 
-.form__container .btn__signup:hover {
+.form__container,
+.btn__signup:hover {
   text-decoration: underline;
   color: #5b21b6;
 }
@@ -201,20 +216,44 @@ label {
   position: absolute;
 }
 
-.loader .circle:nth-child(1) { top: 0; left: 0; }
-.loader .circle:nth-child(2) { top: 0; right: 0; }
-.loader .circle:nth-child(3) { bottom: 0; left: 0; }
-.loader .circle:nth-child(4) { bottom: 0; right: 0; }
-
-@keyframes spin988 {
-  0% { transform: scale(1) rotate(0); }
-  25% { transform: scale(1.3) rotate(90deg); }
-  50% { transform: scale(1) rotate(180deg); }
-  75% { transform: scale(1.3) rotate(270deg); }
+.loader .circle:nth-child(1) {
+  top: 0;
+  left: 0;
 }
 
+.loader .circle:nth-child(2) {
+  top: 0;
+  right: 0;
+}
+
+.loader .circle:nth-child(3) {
+  bottom: 0;
+  left: 0;
+}
+
+.loader .circle:nth-child(4) {
+  bottom: 0;
+  right: 0;
+}
+
+@keyframes spin988 {
+  0% {
+    transform: scale(1) rotate(0);
+  }
+  25% {
+    transform: scale(1.3) rotate(90deg);
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+  }
+  75% {
+    transform: scale(1.3) rotate(270deg);
+  }
+}
+
+/* Responsivo */
 @media screen and (max-width: 768px) {
   .background {
-    background-image: url("../images/imagem-background-site.jpg");
+    background-image: url("../Images/imagem-background-site.jpg");
   }
 }

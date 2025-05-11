@@ -1,5 +1,0 @@
-Coisas a fazer:
-
-1 - Criar uma lógica de controlar o avatar que irá aparecer de acordo com o login
-2 - Arrumar a lógica de leitura do file
-3 - Colocar o nome de usuário logado na tela de home
