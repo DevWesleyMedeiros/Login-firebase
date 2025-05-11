@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-width: 0;
+  outline: none;
+}
+
+
+html {
+  font-family: 'Inter', sans-serif; /* Fonte padrão do Tailwind, ou sua escolha */
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100;
+  overflow-x: hidden;
+  background-color: theme('colors.gray.100');
+  color: theme('colors.gray.800');
+  position: relative;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos de foco visíveis para acessibilidade */
+*:focus-visible {
+  outline: 2px solid theme('colors.indigo.500');
+  outline-offset: 2px;
+}
+
+/* Classes de erro genéricas (já definidas anteriormente, mantidas para referência) */
+.input-error {
+  border-color: theme('colors.red.500') !important;
+}
+
+.error-text {
+  color: theme('colors.red.600');
+  font-size: theme('fontSize.xs');
+}
+
+/* Animação fadeInUp (já definida anteriormente) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}

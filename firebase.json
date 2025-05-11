@@ -3,12 +3,7 @@
     "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
-      { "source": "/", "destination": "/index.html" },
-      {
-        "source": "/src/pages/signup",
-        "destination": "/src/pages/signup.html"
-      },
-      { "source": "/src/pages/home", "destination": "/src/pages/home.html" }
+      { "source": "**", "destination": "index.html" }
     ]
   }
 }

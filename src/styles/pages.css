@@ -1,14 +1,3 @@
-@import "tailwindcss";
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  border: none;
-  outline: none;
-}
 :root {
   --color-primary: #4c1d95;
   --color-secondary: #6d28d9;
@@ -17,13 +6,19 @@
   --textColor: #1f2937;
   --border-radius: 5px;
   --default-text-color: #000;
-  --default-text-color-hover: #fff
+  --default-text-color-hover: #fff;
 }
 
-body, html {
+body,
+html {
   width: 100dvw;
   height: 100dvh;
   overflow-x: hidden;
+  background-image: url("../Images/imagem-background-site.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 header {
@@ -39,7 +34,7 @@ header {
 
 header .container-avatar {
   display: flex;
-  flex: .4;
+  flex: 0.4;
   justify-content: center;
   align-items: center;
   padding: 1rem;
@@ -56,7 +51,7 @@ header .container-avatar {
   position: relative;
 }
 
-.container-avatar .avatar-circle .avatar-image{
+.container-avatar .avatar-circle .avatar-image {
   width: 100%;
   height: 100%;
   background-color: var(--border-color);
@@ -69,7 +64,7 @@ header .container-avatar {
 
 header .btn-logout {
   display: flex;
-  flex: .3;
+  flex: 0.3;
   justify-content: flex-end;
   align-items: center;
   padding: 1rem;
@@ -100,7 +95,8 @@ button.logout {
   padding: 1rem;
   background-image: linear-gradient(to right, var(--color-quaternary), #c4b5fd);
 }
-.main-content .container-books{
+
+.main-content .container-books {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -108,22 +104,31 @@ button.logout {
   flex-wrap: wrap;
   padding: 1rem;
 }
-.container-books .book{
-  max-width: 200px;
-  width: calc(100% / 5);
+
+.container-books .book {
+  width: clamp(150px, 20%, 200px);
   height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: var(--textColor);
-  margin: .5rem .5rem ;
+  margin: 0.5rem;
   border: 1px solid #4d4a4a;
   box-shadow: 5px 5px 1px 2px rgba(0, 0, 0, 0.15);
+
+  /*
+    clamp(valor-mínimo, valor-ideal, valor-máximo)
+
+    valor-mínimo: o menor valor permitido.
+    valor-ideal: o valor preferido, geralmente relativo (como % ou vw).
+    valor-máximo: o maior valor permitido.
+  */
 }
-.search-books-container{
+
+.search-books-container {
   display: flex;
-  flex: .5;
+  flex: 0.5;
   flex-direction: column;
   align-items: center;
   position: relative;
@@ -137,9 +142,9 @@ button.logout {
   color: var(--textColor);
   padding: 1rem;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  
 }
-.search-books-container .btn_search{
+
+.search-books-container .btn_search {
   max-width: 100%;
   width: 225px;
   height: 47px;
@@ -150,10 +155,12 @@ button.logout {
   transition: all 0.5s ease-in-out;
   margin: 1rem 0;
 }
-.search-books-container .btn_search:hover{
+
+.search-books-container .btn_search:hover {
   background-image: linear-gradient(to right, var(--color-secondary), var(--color-primary));
   color: var(--default-text-color-hover);
 }
+
 .main-content h1 {
   color: var(--color-primary);
   font-size: 2rem;
@@ -162,7 +169,7 @@ button.logout {
 }
 
 /* banner de cookies consent */
-.banner-cookies-consent{
+.banner-cookies-consent {
   width: 100%;
   height: 100%;
   display: flex;
@@ -173,52 +180,62 @@ button.logout {
   overflow-x: hidden;
   background-color: rgba(0, 0, 0, 0.6);
 }
-.banner-cookies-consent .cookies{
+
+.banner-cookies-consent .cookies {
   padding: 2rem;
 }
 
-
 /* media queries */
 @media (max-width: 850px) {
-    header{
-        width: 100%;
-        flex-direction: column;
-        justify-content: center;
-    }
-    .btn-logout{
-        display: flex;
-        width: 200px;
-        justify-content: flex-end;
-        align-items: center;
-        padding: 1rem;
-    }
-    .btn-logout button.logout{
-        width: 250px;
-    }
-    .search-books-container .search {
-        max-width: 100%;
-    }
-    .main-content{
-        text-align: center;
-    }
-    .main-content h1{
-        font-size: 1.5rem;
-    }
-    .container-books{
-      justify-content: center;
-    }
-    .container-books .book{
-      width: calc(100% / 3);
-    }
+  header {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .btn-logout {
+    display: flex;
+    width: 200px;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .btn-logout button.logout {
+    width: 250px;
+  }
+
+  .search-books-container .search {
+    max-width: 100%;
+  }
+
+  .main-content {
+    text-align: center;
+  }
+
+  .main-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .container-books {
+    justify-content: center;
+  }
+
+  .container-books .book {
+    width: calc(100% / 3);
+  }
 }
+
 @media (max-width: 480px) {
-    .container-books .book{
-        width: calc(100% / 2);
-    }
-    header{
-        max-width: 100%;
-    }
-    .search-books-container{
+  .container-books .book {
+    width: calc(100% / 2);
+  }
+
+  header {
+    max-width: 100%;
+  }
+
+  .search-books-container {
     width: 100%;
   }
 }

@@ -1,44 +1,31 @@
 import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
-import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  root: './',
-  plugins: [
-    {
-      enforce: 'pre',
-      apply: 'serve',
-      name: 'vite-plugin-env-override',
-      transformIndexHtml(html) {
-        return html.replace(/process\.env\.NODE_ENV/g, '"development"');
-      },
-    },
-    tailwindcss(),
-  ],
-  build: {
-    outDir: 'dist',
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        signup: resolve(__dirname, 'src/pages/signup.html'),
-        home: resolve(__dirname, 'src/pages/home.html'),
-      },
-    },
-  },
-  publicDir: './public',
+  plugins: [react()],
   resolve: {
     alias: {
-      '@scripts': resolve(__dirname, 'src/scripts'),
-      '@services': resolve(__dirname, 'src/services'),
-      '@utils': resolve(__dirname, 'src/utils'),
-      '@styles': resolve(__dirname, 'src/styles'),
-      '@images': resolve(__dirname, 'src/images'),
+      '@components': resolve(__dirname, 'src/Components'),
+      '@services': resolve(__dirname, 'src/Services'),
+      '@styles': resolve(__dirname, 'src/Styles'),
+      '@assets': resolve(__dirname, 'src/Assets'),
+      '@utils': resolve(__dirname, 'src/Utils'),
+      '@pages': resolve(__dirname, 'src/Pages'),
+      '@routes': resolve(__dirname, 'src/Routes'),
+      '@contexts': resolve(__dirname, 'src/Contexts'),
+      '@hooks': resolve(__dirname, 'src/Hooks'),
+      '@images': resolve(__dirname, 'src/Images'),
     },
-    extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', '.png', '.jpeg'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
-  base: '/',
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+  },
   server: {
     port: 5173,
+    open: true,
     proxy: {
       '/__/auth': {
         target: 'https://cadastro-usuarios-9c21e.firebaseapp.com',
@@ -47,8 +34,5 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/__\/auth/, '/__/auth'),
       },
     },
-  },
-  preview: {
-    port: 5173,
   },
 });
